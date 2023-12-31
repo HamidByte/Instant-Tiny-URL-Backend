@@ -3,7 +3,7 @@ const Url = require('../models/Url');
 
 const router = express.Router();
 
-// Redirect to the long URL using the short URL
+// Endpoint to get JSON information for a given short URL
 router.get('/:shortUrl', async (req, res) => {
   const { shortUrl } = req.params;
 
@@ -12,12 +12,14 @@ router.get('/:shortUrl', async (req, res) => {
     const url = await Url.findOne({ shortUrl });
 
     if (url) {
-      // Increment the visit count
-      url.visitCount += 1;
-      await url.save();
-
-      // Redirect to the long URL
-      return res.redirect(url.longUrl);
+      // Respond with JSON information
+      res.json({
+        longUrl: url.longUrl,
+        shortUrl: url.shortUrl,
+        createdAt: url.createdAt,
+        updatedAt: url.updatedAt,
+        visitCount: url.visitCount,
+      });
     } else {
       return res.status(404).json({ error: 'URL not found' });
     }

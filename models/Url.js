@@ -11,6 +11,10 @@ const urlSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  visitCount: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const Url = mongoose.model('Url', urlSchema);
