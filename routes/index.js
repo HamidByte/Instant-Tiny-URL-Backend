@@ -5,12 +5,12 @@ const router = express.Router();
 const indexRoute = require('./indexRoute');
 const shortenerRoute = require('./shortenerRoute');
 const redirectRoute = require('./redirectRoute');
-const statesRoute = require('./statesRoute');
+const statsRoute = require('./statsRoute');
 
 // Use the individual route modules
 router.use('/', indexRoute);
 router.use('/shortener', shortenerRoute);
 router.get('/:shortUrl', redirectRoute);
-router.use('/states', statesRoute);
+router.use('/stats', statsRoute);
 
 module.exports = router;

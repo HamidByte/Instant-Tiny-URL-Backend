@@ -140,9 +140,9 @@ curl -L http://localhost:3000/abc123
 
 **Note:** Replace `abc123` in the examples with the actual short URL generated.
 
-### URL States
+### URL Stats
 
-- **Endpoint:** `/states/:shortUrl`
+- **Endpoint:** `/stats/:shortUrl`
 - **Method:** `GET`
 - **Response:**
   - Returns JSON information for the given short URL, including long URL, short URL, creation date, update date, and visit count.
@@ -150,7 +150,7 @@ curl -L http://localhost:3000/abc123
 **Example Request:**
 
 ```bash
-curl http://localhost:3000/states/abc123
+curl http://localhost:3000/stats/abc123
 ```
 
 **Example Response:**
