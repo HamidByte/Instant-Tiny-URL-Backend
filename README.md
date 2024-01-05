@@ -2,6 +2,10 @@
 
  This project provides a straightforward solution for converting lengthy URLs into concise, easy-to-share links. Enjoy user-friendly features, quick shortening, and a customizable experience. Boost efficiency and simplify your online interactions with our sleek and secure URL Shortener.
 
+## Frontend Repository
+
+For the corresponding frontend, visit the [Instant Tiny URL Frontend](https://github.com/mhamid49/Instant-Tiny-URL-Frontend).
+
 ## Prerequisites
 
 Make sure you have the following software installed on your machine:
