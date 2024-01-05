@@ -3,19 +3,20 @@ const Url = require('../models/Url');
 
 const router = express.Router();
 
-// Endpoint to get JSON information for a given short URL
-router.get('/:shortUrl', async (req, res) => {
-  const { shortUrl } = req.params;
+// Endpoint to get JSON information for a given shortId
+router.get('/:shortId', async (req, res) => {
+  const { shortId } = req.params;
 
   try {
-    // Find the URL in the database by the short URL
-    const url = await Url.findOne({ shortUrl });
+    // Find the URL in the database by the shortId
+    const url = await Url.findOne({ shortId });
 
     if (url) {
       // Respond with JSON information
       res.json({
         longUrl: url.longUrl,
-        shortUrl: url.shortUrl,
+        shortId: url.shortId,
+        shortUrl: url.shortUrl, // Access shortUrl using the virtual property
         createdAt: url.createdAt,
         updatedAt: url.updatedAt,
         visitCount: url.visitCount,

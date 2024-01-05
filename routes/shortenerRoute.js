@@ -13,26 +13,35 @@ router.post('/', async (req, res) => {
     return res.status(400).json({ error: 'Invalid URL' });
   }
 
-  let shortUrl;
+  let shortId;
 
   try {
      // Keep generating a new short ID until it's unique
      do {
-      shortUrl = shortid.generate();
-      var existingUrl = await Url.findOne({ shortUrl });
+      shortId = shortid.generate();
+      var existingUrl = await Url.findOne({ shortId });
     } while (existingUrl);
     
     // Create a new URL entry in the database
     const newUrl = new Url({
       longUrl,
-      shortUrl,
+      shortId,
       createdAt: new Date(),
       updatedAt: new Date(),
     });
 
     await newUrl.save();
 
-    res.json(newUrl);
+    // res.json(newUrl);
+    res.json({
+      longUrl: newUrl.longUrl,
+      shortId: newUrl.shortId,
+      shortUrl: newUrl.shortUrl, // Access shortUrl using the virtual property
+      createdAt: newUrl.createdAt,
+      updatedAt: newUrl.updatedAt,
+      visitCount: newUrl.visitCount,
+    });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });

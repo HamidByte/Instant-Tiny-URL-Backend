@@ -36,8 +36,8 @@ Make sure you have the following software installed on your machine:
     Create a .env file in the root of the project and set the following variables:
 
    ```env
+    HOST=http://localhost
     PORT=3000
-    BASE_URL=http://localhost
     MONGO_URI_DEV=your-mongo-uri-for-development
     MONGO_URI_PROD=your-mongo-uri-for-production
    ```
@@ -104,12 +104,12 @@ The URL shortener project provides the following endpoints:
   - `longUrl`: The long URL that you want to shorten.
 - **Response:**
   - If the URL is valid and successfully shortened, the API will return the shortened URL details.
-  - If the generated `shortUrl` already exists in the database, the API will generate a new `shortUrl` and return the corresponding details.
+  - If the generated `shortId` already exists in the database, the API will generate a new `shortId` and return the corresponding details.
 
 **Example Request:**
 
 ```bash
-curl -X POST http://localhost:3000/shortener -H "Content-Type: application/json" -d '{"longUrl": "https://example.com"}'
+curl -X POST http://localhost:3000/shortener -H "Content-Type: application/json" -d '{"longUrl": "https://example.com/"}'
 ```
 
 **Example Response:**
@@ -117,7 +117,8 @@ curl -X POST http://localhost:3000/shortener -H "Content-Type: application/json"
 ```json
 {
   "_id": "some-unique-id",
-  "longUrl": "https://example.com",
+  "longUrl": "https://example.com/",
+  "shortId": "abc123",
   "shortUrl": "http://localhost:3000/abc123",
   "createdAt": "timestamp",
   "updatedAt": "timestamp",
@@ -126,11 +127,11 @@ curl -X POST http://localhost:3000/shortener -H "Content-Type: application/json"
 
 ### Redirect to Long URL
 
-- **Endpoint:** `/:shortUrl`
+- **Endpoint:** `/:shortId`
 - **Method:** `GET`
 - **Response:**
-  - If the short URL exists in the database, the API will redirect to the long URL.
-  - If the short URL does not exist, the API will return a 404 error.
+  - If the `shortId` exists in the database, the API will redirect to the long URL.
+  - If the `shortId` does not exist, the API will return a 404 error.
 
 **Example Request:**
 
@@ -138,14 +139,14 @@ curl -X POST http://localhost:3000/shortener -H "Content-Type: application/json"
 curl -L http://localhost:3000/abc123
 ```
 
-**Note:** Replace `abc123` in the examples with the actual short URL generated.
+**Note:** Replace `abc123` in the examples with the actual `shortId` generated.
 
 ### URL Stats
 
-- **Endpoint:** `/stats/:shortUrl`
+- **Endpoint:** `/stats/:shortId`
 - **Method:** `GET`
 - **Response:**
-  - Returns JSON information for the given short URL, including long URL, short URL, creation date, update date, and visit count.
+  - Returns JSON information for the given `shortId`, including long URL, shortId, short URL, creation date, update date, and visit count.
 
 **Example Request:**
 
@@ -158,7 +159,8 @@ curl http://localhost:3000/stats/abc123
 ```json
 {
   "_id": "some-unique-id",
-  "longUrl": "https://example.com",
+  "longUrl": "https://example.com/",
+  "shortId": "abc123",
   "shortUrl": "http://localhost:3000/abc123",
   "createdAt": "timestamp",
   "updatedAt": "timestamp",
@@ -166,4 +168,34 @@ curl http://localhost:3000/stats/abc123
 }
 ```
 
-**Note:** Replace `abc123` in the examples with the actual short URL generated.
+**Note:** Replace `abc123` in the examples with the actual `shortId` generated.
+
+### Check URL Existence
+
+- **Endpoint:** `/check/:shortId`
+- **Method:** `HEAD`
+- **Description:** Checks the existence of a URL based on the provided shortId. Responds with a 204 No Content status if the URL exists or a 404 Not Found status if the URL is not found.
+- **Note:** This endpoint is useful for pre-checking whether a short URL exists before attempting to redirect.
+
+**Example Request:**
+
+```bash
+curl -I http://localhost:3000/check/abc123
+```
+
+**Example Response:**
+
+```bash
+HTTP/1.1 204 No Content
+```
+```bash
+HTTP/1.1 404 Not Found
+```
+
+**Status Codes:**
+
+- **`204 No Content:`** URL exists.
+- **`404 Not Found:`** URL not found.
+- **`500 Internal Server Error:`** Internal server error during the check.
+
+**Note:** Replace `abc123` in the examples with the actual `shortId` generated.

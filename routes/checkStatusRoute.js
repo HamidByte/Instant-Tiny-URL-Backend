@@ -3,8 +3,8 @@ const Url = require('../models/Url');
 
 const router = express.Router();
 
-// Redirect to the long URL using the shortId
-router.get('/:shortId', async (req, res) => {
+// Endpoint to check the status for a given shortId
+router.get('/check/:shortId', async (req, res) => {
   const { shortId } = req.params;
 
   try {
@@ -12,17 +12,15 @@ router.get('/:shortId', async (req, res) => {
     const url = await Url.findOne({ shortId });
 
     if (url) {
-      // Increment the visit count
-      url.visitCount += 1;
-      await url.save();
-
-      // Redirect to the long URL
-      return res.redirect(url.longUrl);
+      // Respond with a 204 No Content status (URL exists)
+      return res.status(204).end();
     } else {
-      return res.status(404).json({ error: 'URL not found' });
+      // Respond with a 404 Not Found status (URL not found)
+      return res.status(404).end();
     }
   } catch (error) {
     console.error(error);
+    // Respond with a 500 Internal Server Error status
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });

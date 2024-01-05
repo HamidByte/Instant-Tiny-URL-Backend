@@ -1,8 +1,16 @@
 const mongoose = require('mongoose');
+const { baseURL } = require('../config/serverConfig');
 
 const urlSchema = new mongoose.Schema({
-  longUrl: String,
-  shortUrl: String,
+  longUrl: {
+    type: String,
+    required: true,
+  },
+  shortId: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
@@ -15,6 +23,11 @@ const urlSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+});
+
+// Virtual property to generate shortUrl based on longUrl and shortId
+urlSchema.virtual('shortUrl').get(function () {
+  return `${baseURL}/${this.shortId}`;
 });
 
 const Url = mongoose.model('Url', urlSchema);
