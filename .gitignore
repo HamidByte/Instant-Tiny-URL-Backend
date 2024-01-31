@@ -4,6 +4,7 @@ node_modules
 /build
 .husky
 .eslintcache
+package-lock.json
 
 # local env files
 .env

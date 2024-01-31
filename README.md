@@ -1,10 +1,10 @@
 # Instant Tiny URL Backend
 
- This project provides a straightforward solution for converting lengthy URLs into concise, easy-to-share links. Enjoy user-friendly features, quick shortening, and a customizable experience. Boost efficiency and simplify your online interactions with our sleek and secure URL Shortener.
+This project provides a straightforward solution for converting lengthy URLs into concise, easy-to-share links. Enjoy user-friendly features, quick shortening, and a customizable experience. Boost efficiency and simplify your online interactions with our sleek and secure URL Shortener.
 
 ## Frontend Repository
 
-For the corresponding frontend, visit the [Instant Tiny URL Frontend](https://github.com/mhamid49/Instant-Tiny-URL-Frontend).
+For the corresponding frontend, visit the [Instant Tiny URL Frontend](https://github.com/HamidByte/Instant-Tiny-URL-Frontend).
 
 ## Prerequisites
 
@@ -20,7 +20,7 @@ Make sure you have the following software installed on your machine:
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/mhamid49/Instant-Tiny-URL.git
+   git clone https://github.com/HamidByte/Instant-Tiny-URL.git
    ```
 
 2. **Navigate to the Project Directory:**
@@ -37,7 +37,7 @@ Make sure you have the following software installed on your machine:
 
 4. **Configure Environment Variables:**
 
-    Create a .env file in the root of the project and set the following variables:
+   Create a .env file in the root of the project and set the following variables:
 
    ```env
     HOST=http://localhost
@@ -48,11 +48,11 @@ Make sure you have the following software installed on your machine:
 
 5. **Update Configurations:**
 
-    Modify the configuration files in the `config` directory according to your needs.
+   Modify the configuration files in the `config` directory according to your needs.
 
 6. **Update your scripts in `package.json` for a cross-platform solution:**
 
-    If you are working in a Windows environment and using the Command Prompt, you should use the `set` command to set environment variables.
+   If you are working in a Windows environment and using the Command Prompt, you should use the `set` command to set environment variables.
 
    ```json
     "scripts": {
@@ -62,7 +62,7 @@ Make sure you have the following software installed on your machine:
     }
    ```
 
-    If you are working in a Unix-like environment (Linux or macOS), you should use the `export` command to set environment variables.
+   If you are working in a Unix-like environment (Linux or macOS), you should use the `export` command to set environment variables.
 
    ```json
     "scripts": {
@@ -72,29 +72,31 @@ Make sure you have the following software installed on your machine:
     }
    ```
 
-    Make sure to check your environment and use the appropriate command accordingly.
+   Make sure to check your environment and use the appropriate command accordingly.
 
 7. **Run the Application:**
 
 - For development:
 
-   ```bash
-   npm start
-   ```
-   or
-   ```bash
-   npm run dev
-   ```
+  ```bash
+  npm start
+  ```
+
+  or
+
+  ```bash
+  npm run dev
+  ```
 
 - For production:
 
-   ```bash
-   npm run prod
-   ```
+  ```bash
+  npm run prod
+  ```
 
 8. **Open in Browser:**
 
-    Open your web browser and go to http://localhost:3000 (or your specified port).
+   Open your web browser and go to http://localhost:3000 (or your specified port).
 
 ## Endpoints
 
@@ -125,7 +127,7 @@ curl -X POST http://localhost:3000/shortener -H "Content-Type: application/json"
   "shortId": "abc123",
   "shortUrl": "http://localhost:3000/abc123",
   "createdAt": "timestamp",
-  "updatedAt": "timestamp",
+  "updatedAt": "timestamp"
 }
 ```
 
@@ -192,6 +194,7 @@ curl -I http://localhost:3000/check/abc123
 ```bash
 HTTP/1.1 204 No Content
 ```
+
 ```bash
 HTTP/1.1 404 Not Found
 ```
